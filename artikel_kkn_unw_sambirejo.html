@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Merajut Harapan Sore Hari di Dusun Soklatan - KKN UNW</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky-deep:#16213E;
+    --sky-mid:#5B3A5E;
+    --sky-warm:#C2540A;
+    --gold:#D9A441;
+    --green-deep:#1B5E3F;
+    --green-soft:#EDF4EE;
+    --paper:#FBF8F2;
+    --paper-raise:#F3EEE2;
+    --ink:#241F1B;
+    --ink-soft:#6E6459;
+    --chalk:#F5EFE0;
+    --max:740px;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Public Sans', -apple-system, sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', Georgia, serif;
+    margin:0;
+    color:var(--ink);
+  }
+  a{color:inherit;}
+  img,svg{display:block;max-width:100%;}
+
+  /* ---------- progress bar ---------- */
+  #progress{
+    position:fixed; top:0; left:0; height:4px; width:0%;
+    background:linear-gradient(90deg,var(--gold),var(--sky-warm));
+    z-index:100; transition:width .1s linear;
+  }
+
+  /* ---------- top nav ---------- */
+  .topnav{
+    position:absolute; top:0; left:0; right:0; z-index:20;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px clamp(20px,5vw,56px);
+    color:var(--chalk);
+  }
+  .brand{
+    font-family:'Fraunces',serif; font-weight:700; font-size:17px;
+    letter-spacing:.02em; display:flex; align-items:center; gap:8px;
+  }
+  .brand .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);}
+  .kategori-pill{
+    font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+    border:1px solid rgba(245,239,224,.45); border-radius:999px;
+    padding:6px 14px; color:var(--chalk);
+    background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(4px);
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative; overflow:hidden;
+    background:linear-gradient(180deg, var(--sky-deep) 0%, var(--sky-mid) 48%, var(--sky-warm) 100%);
+    padding:110px clamp(20px,6vw,56px) 0;
+    color:var(--chalk);
+  }
+  .hero-inner{
+    max-width:800px; margin:0 auto; position:relative; z-index:5;
+    padding-bottom:70px; text-align: center;
+  }
+  .eyebrow{
+    display:inline-block;
+    background:var(--green-deep);
+    color:var(--chalk);
+    font-size:12.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
+    padding:8px 14px; border-radius:5px;
+    box-shadow: inset 0 0 0 1px rgba(245,239,224,.18);
+    margin-bottom:22px;
+    font-family:'Public Sans',sans-serif;
+  }
+  .hero h1{
+    font-size:clamp(32px, 5.5vw, 56px);
+    font-weight:700;
+    line-height:1.15;
+    letter-spacing:-.01em;
+    margin-bottom:24px;
+  }
+  .hero .sub{
+    font-family:'Fraunces',serif;
+    font-style:italic; font-weight:500;
+    font-size:clamp(16px,2.4vw,20px);
+    color:rgba(245,239,224,.9);
+    max-width:65ch;
+    margin:0 auto 32px;
+    line-height: 1.5;
+  }
+  .meta-row{
+    display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center; justify-content: center;
+    font-size:14px; color:rgba(245,239,224,.75);
+  }
+  .meta-row strong{color:var(--chalk); font-weight:600;}
+  .meta-sep{opacity:.5;}
+
+  /* skyline illustration */
+  .skyline{
+    position:absolute; left:0; right:0; bottom:0; width:100%;
+    height:auto; opacity:.95;
+  }
+  .star{
+    position:absolute; background:var(--chalk); border-radius:50%;
+    opacity:.5; animation:twinkle 3.4s ease-in-out infinite;
+  }
+  @keyframes twinkle{ 0%,100%{opacity:.15;} 50%{opacity:.75;} }
+
+  /* ---------- section nav chips ---------- */
+  .chipnav-wrap{
+    background:var(--paper-raise);
+    border-bottom:1px solid #E6DFCF;
+    position:sticky; top:0; z-index:15;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+  .chipnav{
+    max-width:800px; margin:0 auto;
+    display:flex; gap:10px; overflow-x:auto;
+    padding:14px clamp(20px,6vw,20px);
+    scrollbar-width:none;
+  }
+  .chipnav::-webkit-scrollbar{display:none;}
+  .chip{
+    flex:0 0 auto;
+    font-size:13px; font-weight:600; color:var(--ink-soft);
+    background:transparent; border:1px solid #DED5C0; border-radius:999px;
+    padding:8px 16px; white-space:nowrap; text-decoration:none;
+    transition:all .2s ease;
+  }
+  .chip:hover{border-color:var(--green-deep); color:var(--green-deep); background:rgba(27, 94, 63, 0.05);}
+  .chip.active{background:var(--green-deep); border-color:var(--green-deep); color:var(--chalk); box-shadow: 0 2px 6px rgba(27, 94, 63, 0.3);}
+
+  /* ---------- article ---------- */
+  main{max-width:var(--max); margin:0 auto; padding:52px clamp(20px,6vw,20px);}
+  
+  .lede{
+    font-family:'Fraunces',serif; font-weight:500; font-size:clamp(19px,2.6vw,23px);
+    line-height:1.6; color:var(--ink); margin-bottom:30px;
+  }
+  .lede::first-letter{
+    font-family:'Fraunces',serif; font-weight:900; font-size:3.8em;
+    float:left; line-height:.85; margin:.05em .09em 0 0; color:var(--green-deep);
+  }
+  p.body-p{
+    font-size:17px; color:var(--ink); margin:0 0 24px; line-height:1.8;
+  }
+  section.block{margin-bottom:20px; scroll-margin-top:80px;}
+  h2.section-title{
+    font-size:clamp(26px,3.5vw,32px);
+    font-weight:700;
+    margin:56px 0 24px;
+    padding-bottom:14px;
+    border-bottom:3px solid var(--green-deep);
+    display:inline-block;
+  }
+
+  /* Photo Styles */
+  .photo-container {
+    margin: 40px 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #F4EFE1;
+    border: 1px solid #E6DFCF;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+  .photo-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    max-height: 450px;
+  }
+  .photo-container .ph-caption {
+    font-family:'Fraunces',serif; font-style:italic; font-size:15px;
+    padding: 16px 20px; color: var(--ink-soft);
+    background: var(--paper-raise);
+    border-top: 1px solid #E6DFCF;
+    line-height: 1.5;
+  }
+
+  /* Gallery Slider (Album Bergerak) */
+  .gallery-wrapper {
+    margin: 40px 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #F4EFE1;
+    border: 1px solid #E6DFCF;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+  .slider-container {
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 20px;
+  }
+  .slider-track {
+    display: inline-flex;
+    gap: 16px;
+    animation: slide 30s linear infinite;
+  }
+  .slider-track:hover {
+    animation-play-state: paused;
+  }
+  .slider-track img {
+    height: 250px;
+    width: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  @keyframes slide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 8px)); }
+  }
+  .gallery-caption {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 15px;
+    padding: 16px 20px;
+    color: var(--ink-soft);
+    background: var(--paper-raise);
+    border-top: 1px solid #E6DFCF;
+    text-align: center;
+  }
+
+  /* steps */
+  .steps{margin:32px 0; padding:0; list-style:none;}
+  .step{
+    display:flex; gap:20px; padding:20px 0; border-bottom:1px solid #EBE3D2;
+  }
+  .step:last-child{border-bottom:none;}
+  .step-num{
+    flex:0 0 auto; width:38px; height:38px; border-radius:10px;
+    background:var(--green-deep); color:var(--chalk);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-weight:700; font-size:16px;
+    transform:rotate(-3deg);
+    box-shadow: 2px 4px 8px rgba(27, 94, 63, 0.25);
+  }
+  .step-text strong{display:block; margin-bottom:6px; font-size:17px; color: var(--ink);}
+  .step-text span{color:var(--ink-soft); font-size:16px; line-height: 1.6; display: block;}
+
+  /* info card */
+  .info-card{
+    background:var(--green-soft);
+    border-radius:var(--radius);
+    overflow:hidden; margin:40px 0;
+    border:1px solid #DCEBE1;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  }
+  .info-card-head{
+    background:var(--green-deep); color:var(--chalk);
+    padding:14px 24px; font-weight:700; font-size:14px;
+    letter-spacing:.08em; text-transform:uppercase;
+    font-family:'Public Sans',sans-serif;
+  }
+  .info-row{
+    display:flex; gap:16px; padding:16px 24px;
+    border-bottom:1px solid #DCEBE1; font-size:15.5px;
+  }
+  .info-row:last-child{border-bottom:none;}
+  .info-row .k{flex:0 0 120px; font-weight:700; color:var(--green-deep);}
+  .info-row .v{color:var(--ink); line-height: 1.5;}
+
+  /* pull quote */
+  blockquote.pull{
+    margin:48px 0; padding:10px 0 10px 32px;
+    border-left:5px solid var(--gold);
+    font-family:'Fraunces',serif; font-style:italic; font-weight:600;
+    font-size:clamp(20px,2.8vw,26px); line-height:1.5;
+    color:var(--sky-mid);
+    background: linear-gradient(90deg, rgba(217, 164, 65, 0.08) 0%, rgba(251, 248, 242, 0) 100%);
+    border-radius: 0 12px 12px 0;
+  }
+
+  /* tips card */
+  .tips-card{
+    background:#FBF3E4; border:1px solid #EAD9B4; border-radius:var(--radius);
+    padding:32px 32px 16px; margin:40px 0;
+    box-shadow: 0 4px 12px rgba(217, 164, 65, 0.1);
+  }
+  .tips-card h3{
+    font-family:'Fraunces',serif; font-size:20px; font-weight:700; margin:0 0 20px;
+    color:#7A4F0C;
+  }
+  .tip{display:flex; gap:16px; margin-bottom:20px; font-size:16px; line-height:1.6;}
+  .tip .check{
+    flex:0 0 auto; width:26px; height:26px; border-radius:50%;
+    background:var(--gold); color:#fff; font-size:14px; font-weight:700;
+    display:flex; align-items:center; justify-content:center; margin-top:2px;
+    box-shadow: 0 2px 6px rgba(217, 164, 65, 0.4);
+  }
+
+  /* accordion for abstract & references */
+  .accordion {
+    border: 1px solid #E6DFCF; border-radius: 8px; margin-top: 40px;
+    background: var(--paper-raise);
+  }
+  .accordion-item { border-bottom: 1px solid #E6DFCF; }
+  .accordion-item:last-child { border-bottom: none; }
+  .accordion-header {
+    width: 100%; text-align: left; background: none; border: none;
+    padding: 16px 20px; font-weight: 600; font-size: 15px; color: var(--ink);
+    cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+    font-family: 'Public Sans', sans-serif;
+  }
+  .accordion-header:hover { background: rgba(0,0,0,0.02); }
+  .accordion-content {
+    padding: 0 20px; max-height: 0; overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease;
+    font-size: 14px; color: var(--ink-soft); line-height: 1.6;
+  }
+  .accordion-content.active { padding: 16px 20px; max-height: 2000px; }
+  .accordion-icon { transition: transform 0.3s ease; }
+  .active .accordion-icon { transform: rotate(180deg); }
+
+  .closing-line{
+    font-family:'Fraunces',serif; font-size:clamp(19px,2.6vw,22px);
+    line-height:1.6; color:var(--ink); margin:48px 0; font-weight:600;
+    text-align: center;
+  }
+  .thanks{
+    font-size:15px; font-style:italic; color:var(--ink-soft);
+    border-top:1px solid #E6DFCF; padding-top:32px; margin-top:48px; line-height:1.8;
+    text-align: center;
+  }
+
+  /* author card */
+  .author-card{
+    margin:56px 0 20px; padding:32px; border-radius:var(--radius);
+    background:var(--sky-deep); color:var(--chalk);
+    box-shadow: 0 12px 32px rgba(22, 33, 62, 0.2);
+  }
+  .author-card .label{
+    font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:16px; display: inline-block;
+    border-bottom: 2px solid var(--gold); padding-bottom: 4px;
+  }
+  .avatars{display:flex; margin-bottom:20px;}
+  .avatar{
+    width:42px; height:42px; border-radius:50%;
+    background:var(--green-deep); color:var(--chalk);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-weight:700; font-size:15px;
+    border:2px solid var(--sky-deep); margin-left:-12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .avatar:first-child{margin-left:0;}
+  .author-card p{margin:6px 0; font-size:15px; color:rgba(245,239,224,.85); line-height: 1.6;}
+  .author-card a{color:var(--gold); text-decoration:underline; font-weight: 500;}
+
+  footer{
+    text-align:center; padding:40px 20px 80px;
+    color:var(--ink-soft); font-size:14px;
+    background: var(--paper-raise);
+    border-top: 1px solid #E6DFCF;
+  }
+
+  @media (max-width:520px){
+    .hero{padding-top:90px;}
+    .topnav{padding:16px 20px;}
+    main{padding-top:32px;}
+    .info-row{flex-direction: column; gap: 4px;}
+    .info-row .k{flex: none; font-size:13px; opacity: 0.8;}
+    .step{flex-direction: column; gap: 12px;}
+    .step-num{transform: none; border-radius: 50%;}
+  }
+
+  [data-reveal]{opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(0.2, 0.8, 0.2, 1), transform .7s cubic-bezier(0.2, 0.8, 0.2, 1);}
+  [data-reveal].in{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    [data-reveal]{opacity:1; transform:none; transition:none;}
+    .star{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<header class="hero">
+  <nav class="topnav">
+    <div class="brand"><span class="dot"></span>Kelompok 11 Desa Sambirejo</div>
+    <div class="kategori-pill">Pengabdian Masyarakat</div>
+  </nav>
+
+  <div class="hero-inner" data-reveal>
+    <span class="eyebrow">Cerita KKN dari Dusun Soklatan</span>
+    <h1>Merajut Harapan Sore Hari yang Sederhana, Menyalakan Cahaya Masa Depan</h1>
+    <p class="sub">Mahasiswa KKN Universitas Ngudi Waluyo Hadir Mendampingi Anak-Anak Belajar dan Mengaji di Dusun Soklatan, Desa Sambirejo, Kecamatan Bringin.</p>
+    <div class="meta-row">
+      <span><strong>Tim KKN UNW Sambirejo</strong></span>
+      <span class="meta-sep">•</span>
+      <span>Artikel Pengabdian</span>
+      <span class="meta-sep">•</span>
+      <span>7 menit baca</span>
+    </div>
+  </div>
+
+  <!-- skyline illustration -->
+  <svg class="skyline" viewBox="0 0 1200 220" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,220 L0,140 L60,140 L60,120 L110,120 L110,140 L180,140 L180,100 L230,100 L230,140 L300,140 L300,90 L340,60 L380,90 L380,140 L470,140 L470,110 L520,110 L520,140 L600,140 L600,70 L650,40 L700,70 L700,140 L820,140 L820,115 L865,115 L865,140 L960,140 L960,95 L1005,95 L1005,140 L1200,140 L1200,220 Z" fill="#0E1830" opacity="0.9"/>
+    <!-- mosque dome + minaret -->
+    <g fill="#0B1424">
+      <path d="M600,140 L600,95 Q600,58 650,55 Q700,58 700,95 L700,140 Z"/>
+      <rect x="644" y="18" width="12" height="42"/>
+      <circle cx="650" cy="14" r="6"/>
+      <path d="M340,140 L340,80 L340,60 L380,90 L380,140 Z"/>
+    </g>
+  </svg>
+  <div class="star" style="width:3px;height:3px;top:18%;left:12%;animation-delay:.2s;"></div>
+  <div class="star" style="width:2px;height:2px;top:26%;left:28%;animation-delay:1.1s;"></div>
+  <div class="star" style="width:3px;height:3px;top:14%;left:44%;animation-delay:.6s;"></div>
+  <div class="star" style="width:2px;height:2px;top:30%;left:63%;animation-delay:1.8s;"></div>
+  <div class="star" style="width:3px;height:3px;top:16%;left:80%;animation-delay:.9s;"></div>
+  <div class="star" style="width:2px;height:2px;top:24%;left:92%;animation-delay:1.4s;"></div>
+</header>
+
+<div class="chipnav-wrap">
+  <div class="chipnav" id="chipnav">
+    <a class="chip active" href="#latar">Pendahuluan</a>
+    <a class="chip" href="#metode">Metode & Pelaksanaan</a>
+    <a class="chip" href="#hasil">Hasil & Pembahasan</a>
+    <a class="chip" href="#simpulan">Simpulan</a>
+  </div>
+</div>
+
+<main>
+
+  <p class="lede" data-reveal>Dusun Soklatan adalah satu dari tiga dusun di Desa Sambirejo, Kecamatan Bringin. Di tengah lahan pertanian dengan kontur tanah yang landai hingga berbukit, rutinitas warga didominasi oleh kegiatan bertani. Para orang tua berangkat pagi hari dan baru pulang menjelang senja.</p>
+
+  <section class="block" id="latar">
+    <p class="body-p" data-reveal>Kondisi ini membuat anak-anak sering menghabiskan waktu sepulang sekolah tanpa pendampingan orang dewasa. Minimnya pendampingan sore hari ini berdampak pada dua hal sekaligus: kemampuan akademik dasar anak yang tidak terpantau dan intensitas belajar membaca Al-Qur'an yang menurun.</p>
+
+    <div class="photo-container" data-reveal>
+      <img src="foto1.png" alt="Suasana kegiatan belajar anak-anak Dusun Soklatan" onerror="this.src='https://images.unsplash.com/photo-1542838686-37ed7a05646c?q=80&w=1000&auto=format&fit=crop';">
+      <div class="ph-caption">Suasana hangat saat mahasiswa KKN mendampingi anak-anak belajar di salah satu rumah warga Dusun Soklatan.</div>
+    </div>
+
+    <h2 class="section-title" data-reveal>Kebutuhan Akan Pendampingan</h2>
+    <p class="body-p" data-reveal>Sebagian anak di Soklatan sudah kenal huruf hijaiyah, tapi belum lancar membaca Iqra karena jarang mengulang bacaan di rumah. Sebagian lain kesulitan mengerjakan PR sendirian. Pola serupa banyak ditemukan di desa-desa pedalaman lain; anak yang orang tuanya sibuk seharian jarang mendapat bimbingan tambahan (Hamdi et al., 2024).</p>
+    
+    <p class="body-p" data-reveal>Selain itu, jumlah guru ngaji di TPQ dusun pun terbatas. Begitu guru berhalangan hadir, kegiatan mengaji ikut terhenti. Oleh karena itu, kehadiran mahasiswa Kuliah Kerja Nyata (KKN) Universitas Ngudi Waluyo diharapkan tidak hanya mengisi kekosongan tenaga pengajar, tetapi juga berperan sebagai motivator yang membuat suasana belajar menjadi lebih ceria dan interaktif (Ismail et al., 2024).</p>
+    
+    <p class="body-p" data-reveal>Berangkat dari kebutuhan tersebut, kami merancang satu program: <strong>pendampingan belajar dan mengaji setiap sore</strong>. Tujuannya sederhana namun mendasarmenguatkan kemampuan akademik, melancarkan bacaan Al-Qur'an, serta membentuk karakter religius anak sebagai bekal masa depan.</p>
+  </section>
+
+  <section class="block" id="metode">
+    <h2 class="section-title" data-reveal>Metode Pembelajaran Partisipatif</h2>
+    <p class="body-p" data-reveal>Kegiatan ini menggunakan metode pelatihan dan pendampingan partisipatif berbasis praktik langsung (<em>learning by doing</em>). Pendekatan ini dipilih agar anak tidak sekadar duduk mendengarkan, melainkan terlibat aktif, baik saat mengerjakan tugas sekolah maupun mengeja Iqra.</p>
+    
+    <p class="body-p" data-reveal>Dilaksanakan pada bulan Juli hingga Agustus 2025, kegiatan ini mengambil waktu setiap sore hari selepas anak-anak pulang sekolah. Bertempat di masjid, mushola, dan posko KKN, jadwal ini disusun dengan cermat agar tidak berbenturan dengan waktu istirahat anak.</p>
+
+    <div class="photo-container" data-reveal>
+      <img src="foto5.png" alt="Mahasiswa KKN menyimak hafalan dan bacaan Al-Quran anak" onerror="this.src='https://images.unsplash.com/photo-1601625463674-6014cb352d10?q=80&w=1000&auto=format&fit=crop';">
+      <div class="ph-caption">Pendampingan personal (one-on-one) membantu anak lebih fokus dan berani bertanya saat belajar membaca Iqra dan Al-Qur'an.</div>
+    </div>
+
+    <ul class="steps" data-reveal>
+      <li class="step">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Observasi & Koordinasi</strong><span>Berdiskusi dengan perangkat desa, takmir masjid, dan guru TPQ untuk menyesuaikan jadwal dan memahami kondisi awal anak-anak.</span></div>
+      </li>
+      <li class="step">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Sosialisasi Program</strong><span>Menyampaikan tujuan dan manfaat bimbingan sore kepada orang tua, memastikan adanya dukungan dari lingkungan rumah.</span></div>
+      </li>
+      <li class="step">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>Sesi Belajar Akademik</strong><span>Membimbing anak mengerjakan PR, membaca, menulis, dan berhitung yang dikemas sambil bermain agar terhindar dari rasa jenuh (Nurlela et al., 2023).</span></div>
+      </li>
+      <li class="step">
+        <div class="step-num">4</div>
+        <div class="step-text"><strong>Pendampingan Mengaji</strong><span>Membagi kelompok: pemula belajar Iqra dan pengenalan hijaiyah, sedangkan yang sudah lancar berlatih membaca Al-Qur'an dan tajwid dasar.</span></div>
+      </li>
+      <li class="step">
+        <div class="step-num">5</div>
+        <div class="step-text"><strong>Evaluasi & Apresiasi</strong><span>Memberikan stiker, alat tulis, atau sekadar pujian untuk memotivasi anak agar semangat hadir di hari berikutnya.</span></div>
+      </li>
+    </ul>
+
+    <div class="info-card" data-reveal>
+      <div class="info-card-head">Rincian Sarana Prasarana</div>
+      <div class="info-row"><div class="k">Alat Belajar</div><div class="v">Papan tulis kecil, spidol, meja lipat/tikar, alat tulis (pensil, pulpen, penggaris).</div></div>
+      <div class="info-row"><div class="k">Bahan Ajar</div><div class="v">Kartu huruf hijaiyah, Buku Iqra & Al-Qur'an, buku pelajaran sekolah, buku cerita, dan lembar soal.</div></div>
+      <div class="info-row"><div class="k">Apresiasi</div><div class="v">Sistem reward sederhana berupa stiker apresiasi dan tambahan alat tulis.</div></div>
+    </div>
+  </section>
+
+  <section class="block" id="hasil">
+    <h2 class="section-title" data-reveal>Hasil Nyata: Kelancaran dan Kedisiplinan</h2>
+    <p class="body-p" data-reveal>Konsistensi program ini membuahkan hasil. Sekitar 25 anak usia SD yang tergabung hadir secara rutin setiap sore. Antusiasme mereka memuncak terutama pada sesi belajar yang diselingi permainan interaktif. Metode yang sebelumnya monoton kini berubah menjadi pengalaman belajar dua arah yang menyenangkan.</p>
+    
+    <div class="photo-container" data-reveal>
+      <img src="foto2.png" alt="Anak-anak antusias mengikuti bimbingan" onerror="this.src='https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1000&auto=format&fit=crop';">
+      <div class="ph-caption">Metode belajar berkelompok menciptakan interaksi positif antar anak dan meningkatkan rasa percaya diri mereka.</div>
+    </div>
+
+    <p class="body-p" data-reveal>Di bidang akademik, anak-anak kini lebih disiplin menyelesaikan tugas sekolah dan lebih berani tampil. Sementara itu, pada aspek keagamaan, tingkat kelancaran membaca Iqra dan Al-Qur'an meningkat pesat. Kesalahan pelafalan huruf perlahan berkurang, dan jumlah anak yang sukses "naik jilid" Iqra terus bertambah.</p>
+
+    <blockquote class="pull" data-reveal>"Pembinaan bacaan Al-Qur'an yang dipadukan dengan praktik ibadah terbukti mampu menumbuhkan kedisiplinan dan kesadaran spiritual anak secara bertahap."</blockquote>
+
+    <p class="body-p" data-reveal>Perubahan tidak berhenti pada nilai akademik. Anak-anak terbiasa mengucapkan salam, tertib berkelompok, dan saling mengingatkan jadwal mengaji. Di sisi lain, orang tua yang semula sibuk bekerja mulai menunjukkan dukungan penuh, seperti memantau perkembangan anak dan menjemput mereka sepulang kelas (Rahmawati et al., 2023).</p>
+
+    <div class="photo-container" data-reveal>
+      <img src="foto4.png" alt="Sesi kelompok besar mengaji" onerror="this.src='https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1000&auto=format&fit=crop';">
+      <div class="ph-caption">Antusiasme anak-anak Dusun Soklatan mengikuti kelas sore bersama kakak-kakak mahasiswa KKN UNW.</div>
+    </div>
+  </section>
+
+  <section class="block" id="simpulan">
+    <h2 class="section-title" data-reveal>Simpulan dan Harapan Berkelanjutan</h2>
+    <p class="body-p" data-reveal>Program pendampingan ini membuktikan bahwa pendekatan sederhana namun konsisten mampu membawa dampak positif yang besar. Kemampuan akademik dasar anak-anak Soklatan menguat, bacaan agama semakin lancar, dan karakter religius pun tumbuh subur seiring berjalannya waktu.</p>
+    
+    <p class="body-p" data-reveal>Namun, waktu mahasiswa KKN di desa terbatas. Agar pelita pendidikan ini terus menyala di Dusun Soklatan, diperlukan estafet program dari warga lokal. Berikut adalah beberapa rekomendasi untuk menjaga keberlanjutan program:</p>
+
+    <div class="tips-card" data-reveal>
+      <h3>Rekomendasi Keberlanjutan</h3>
+      <div class="tip"><div class="check">✓</div><div><strong>Kemandirian Warga:</strong> Serahkan tongkat estafet kepada Remaja Masjid, PKK, atau Karang Taruna untuk mengelola jadwal kelas sore secara bergantian.</div></div>
+      <div class="tip"><div class="check">✓</div><div><strong>Fasilitas Desa:</strong> Perangkat desa takmir diharapkan menganggarkan pengadaan tambahan Iqra, Al-Qur'an, dan fasilitas belajar lainnya.</div></div>
+      <div class="tip"><div class="check">✓</div><div><strong>Variasi Metode:</strong> Selipkan permainan edukatif dan adakan lomba keagamaan kecil-kecilan di tingkat dusun untuk menjaga semangat anak-anak.</div></div>
+      <div class="tip"><div class="check">✓</div><div><strong>Evaluasi Berkala:</strong> Lakukan pencatatan sederhana mengenai perkembangan mengaji anak agar pendampingan bisa lebih tepat sasaran.</div></div>
+    </div>
+
+    <!-- Album Foto Bergerak Otomatis (Diletakkan di bagian penutup) -->
+    <div class="gallery-wrapper" data-reveal>
+      <div class="slider-container">
+        <div class="slider-track">
+          <!-- SET 1 -->
+          <img src="foto01.png" alt="Dokumentasi 1">
+          <img src="foto02.png" alt="Dokumentasi 2">
+          <img src="foto03.png" alt="Dokumentasi 3">
+          <img src="foto04.png" alt="Dokumentasi 4">
+          <img src="foto05.png" alt="Dokumentasi 5">
+          <img src="foto06.png" alt="Dokumentasi 6">
+          <img src="foto07.png" alt="Dokumentasi 7">
+          
+          <!-- SET 2 (Untuk ilusi berputar tanpa henti) -->
+          <img src="foto01.png" alt="Dokumentasi 1">
+          <img src="foto02.png" alt="Dokumentasi 2">
+          <img src="foto03.png" alt="Dokumentasi 3">
+          <img src="foto04.png" alt="Dokumentasi 4">
+          <img src="foto05.png" alt="Dokumentasi 5">
+          <img src="foto06.png" alt="Dokumentasi 6">
+          <img src="foto07.png" alt="Dokumentasi 7">
+        </div>
+      </div>
+      <div class="gallery-caption">Dokumentasi dengan warga</div>
+    </div>
+
+    <p class="closing-line" data-reveal>Tidak perlu menunggu program berskala besar. Dengan sebuah papan tulis kecil, beberapa buku Iqra, dan kemauan untuk menemani, kita sudah bisa merajut harapan untuk masa depan mereka.</p>
+
+    <!-- Accordion for Academic Data -->
+    <div class="accordion" data-reveal>
+      <div class="accordion-item">
+        <button class="accordion-header" onclick="toggleAccordion(this)">
+          <span>Abstrak / Abstract</span>
+          <svg class="accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="accordion-content">
+          <p><strong>Abstrak:</strong> Program Kuliah Kerja Nyata (KKN) mahasiswa Universitas Ngudi Waluyo di Dusun Soklatan, Desa Sambirejo, berfokus pada pendampingan belajar sore hari dan bimbingan mengaji bagi anak-anak. Mengingat mayoritas orang tua bekerja sebagai petani/buruh harian, anak kurang mendapat pendampingan sepulang sekolah. Program ini memadukan bimbingan akademik dan mengaji (Iqra/Al-Qur'an) melalui pendekatan partisipatif. Hasil menunjukkan peningkatan kelancaran membaca, motivasi, serta kedisiplinan beribadah. Artikel ini memaparkan model pendidikan komunitas untuk memperkuat fondasi anak pedesaan.</p>
+          <p><strong>Abstract:</strong> The Community Service Program (KKN) by Universitas Ngudi Waluyo students in Soklatan Hamlet focused on afternoon learning assistance and Qur'an reading accompaniment for children. With most parents working as farmers, children lack consistent guidance after school. The program combined academic tutoring with structured mengaji sessions via a participatory approach. Results show increased reading fluency, learning motivation, and religious discipline. This article describes a student-led community education model aiming to strengthen children's academic foundation and religious character in rural areas.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" onclick="toggleAccordion(this)">
+          <span>Daftar Pustaka</span>
+          <svg class="accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="accordion-content">
+          <ol style="padding-left: 20px;">
+            <li>Hamdi, M., et al. (2024). Pendampingan Pengajaran Melalui Rumah Binaan Anak KKN Kebangsaan di Wilayah Perbatasan Indonesia-Malaysia. <em>Jurnal Pengabdian kepada Masyarakat Nusantara (JPkMN)</em>, 5(1), 1140-1146.</li>
+            <li>Ismail, I., et al. (2024). Peran Guru dan Mahasiswa KKN dalam Pengajaran Al-Quran di TPQ Miftahul Khairot Desa Bukit Peninjauan I. <em>Dinamika Sosial</em>, 1(3), 9-19.</li>
+            <li>Kurniawan, A., & Sitepu, J. M. (2025). Pembinaan Bacaan Al-Qur'an dan Fiqih Salat Berjamaah bagi Siswa MDTA Yayasan Pendidikan Islam Al-Muttaqin... <em>Ardhi: Jurnal Pengabdian dalam Negri</em>, 3(5), 91-105.</li>
+            <li>Maghribi, A. M., et al. (2023). Peran Mahasiswa Dalam Meningkatkan Kemampuan Membaca Al-Quran Melalui Kegiatan KKN Mengajar Mengaji. <em>BERDAYA</em>, 6(1), 51-62.</li>
+            <li>Nurlela, N., et al. (2023). Peran Mahasiswa KKN Sebagai Tenaga Pengajar Di Taman Pendidikan Al Quran (TPA) Desa Purwosari. <em>Jurnal Kegiatan Pengabdian Mahasiswa (JKPM)</em>, 1(2), 83-86.</li>
+            <li>Rahmawati, S., et al. (2023). Bimbingan Belajar Gratis Mata Pelajaran Matematika Tingkat SD di Yayasan Kencana Bakti Semesta (YKBS) Badung Bali. <em>Bakti Cendana</em>, 6(1), 70-76.</li>
+            <li>Zahroh, L. A., et al. (2024). Pengabdian Kepada Masyarakat Melalui Peningkatan Minat Belajar Mengaji Al-Qur'an Anak Usia Dini. <em>Masyarakat Mandiri</em>, 1(3), 21-30.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <p class="thanks" data-reveal><strong>Ucapan Terima Kasih:</strong><br>Pemerintah Desa Sambirejo dan perangkat Dusun Soklatan atas izin dan dukungannya; takmir masjid/mushola serta guru TPQ setempat atas ruang kolaborasinya; seluruh orang tua dan anak-anak yang berpartisipasi dengan semangat; serta Universitas Ngudi Waluyo dan Dosen Pembimbing Lapangan atas bimbingan selama KKN.</p>
+  </section>
+
+  <div class="author-card" data-reveal>
+    <div class="label">Disusun Oleh</div>
+    <div class="avatars">
+      <div class="avatar">UNW</div>
+      <div class="avatar">KKN</div>
+    </div>
+    <p><strong style="color:#F5EFE0;">Mahasiswa KKN Universitas Ngudi Waluyo</strong></p>
+    <p>Program Studi Terkait, Universitas Ngudi Waluyo</p>
+    <p>Dosen Pembimbing Lapangan: [Nama Dosen Pembimbing Lapangan, Gelar]</p>
+    <p>Email Korespondensi: <a href="mailto:email_kkn_sambirejo@ac.id">email_kkn_sambirejo@ac.id</a></p>
+  </div>
+
+</main>
+
+<footer>
+  Diterbitkan sebagai bagian dari Publikasi Pengabdian KKN Universitas Ngudi Waluyo<br>Desa Sambirejo, Kecamatan Bringin, Kabupaten Semarang.
+</footer>
+
+<script>
+  // reading progress
+  const bar = document.getElementById('progress');
+  function updateProgress(){
+    const h = document.documentElement;
+    const scrolled = h.scrollTop;
+    const max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max > 0 ? (scrolled / max) * 100 : 0) + '%';
+  }
+  document.addEventListener('scroll', updateProgress, {passive:true});
+  updateProgress();
+
+  // scroll reveal
+  const reveals = document.querySelectorAll('[data-reveal]');
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    },{threshold:0.1, rootMargin:'0px 0px -30px 0px'});
+    reveals.forEach(el=>io.observe(el));
+  } else {
+    reveals.forEach(el=>el.classList.add('in'));
+  }
+
+  // chip nav active state
+  const chips = document.querySelectorAll('.chip');
+  const sections = document.querySelectorAll('section.block');
+  if('IntersectionObserver' in window){
+    const navIo = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        const id = entry.target.getAttribute('id');
+        const chip = document.querySelector('.chip[href="#'+id+'"]');
+        if(!chip) return;
+        if(entry.isIntersecting){
+          chips.forEach(c=>c.classList.remove('active'));
+          chip.classList.add('active');
+        }
+      });
+    },{threshold:0, rootMargin:'-45% 0px -50% 0px'});
+    sections.forEach(s=>navIo.observe(s));
+  }
+
+  // Accordion Logic
+  function toggleAccordion(button) {
+    const content = button.nextElementSibling;
+    const isActive = content.classList.contains('active');
+    
+    // Close all other accordions (optional)
+    document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.accordion-header').forEach(h => h.classList.remove('active'));
+
+    // Toggle current
+    if (!isActive) {
+      content.classList.add('active');
+      button.classList.add('active');
+    }
+  }
+</script>
+
+</body>
+</html>
